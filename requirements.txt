@@ -1,0 +1,11 @@
+httpx==0.28.1
+pytest==8.3.4
+fastapi==0.115.6
+typing==3.7.4.3
+uvicorn==0.34.0
+pydantic==2.10.4
+python-multipart==0.0.20
+pytest-asyncio==0.25.0
+pytest-rerunfailures==15.0
+pytest-xdist==3.6.1
+structlog==25.2.0
