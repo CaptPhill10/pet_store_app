@@ -1,11 +1,11 @@
-import structlog
+from util.logging_config import logger
 from fastapi import APIRouter, HTTPException, Form
 from pydantic import BaseModel
 from typing import List, Dict
 from data.pets_data import pets as init_pets
 
 router = APIRouter()
-logger = structlog.get_logger(__name__)
+# logger = structlog.get_logger(__name__)
 
 
 # Pet module

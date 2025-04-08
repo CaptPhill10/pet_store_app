@@ -1,11 +1,11 @@
-import structlog
+from util.logging_config import logger
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Dict, List
 from data.user_data import users as init_users
 
 router = APIRouter()
-logger = structlog.get_logger(__name__)
+# logger = structlog.get_logger(__name__)
 
 
 # User data model

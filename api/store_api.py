@@ -1,10 +1,10 @@
-import structlog
+from util.logging_config import logger
 from fastapi import APIRouter, HTTPException
 from data.store_data import orders, order_id_counter
 from data.pets_data import pets
 
 router = APIRouter()
-logger = structlog.get_logger(__name__)
+# logger = structlog.get_logger(__name__)
 
 
 @router.post("/store/order", status_code=201)

@@ -5,13 +5,8 @@ import threading
 import pytest
 import random
 import time
-import structlog
+from util.logging_config import logger
 from api.app import app
-from util.logging_config import setup_logging
-
-# Logging
-setup_logging()
-logger = structlog.get_logger(__name__)  # Use structlog
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -64,3 +59,9 @@ def base_url():
     base_url = f"http://127.0.0.1:{port}"
     logger.info("Base URL", base_url=base_url)
     return base_url
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_setup(item):
+    logger.info("\nTEST STARTED", test_name=item.name)
+    yield

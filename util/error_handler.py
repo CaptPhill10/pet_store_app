@@ -1,8 +1,6 @@
 from fastapi import Request, HTTPException
 from fastapi.responses import JSONResponse
-import structlog
-
-logger = structlog.get_logger(__name__)
+from util.logging_config import logger
 
 
 async def http_exception_handler(request: Request, exc: HTTPException):
