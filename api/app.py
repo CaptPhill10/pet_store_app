@@ -1,8 +1,9 @@
 from fastapi import FastAPI, Request
-from util.logging_config import logger
+
 from api.pets_api import router as pets_router
 from api.store_api import router as store_router
 from api.user_api import router as user_router
+from util.logging_config import logger
 
 app = FastAPI()
 
@@ -18,6 +19,7 @@ async def log_requests(request: Request, call_next):
     )
     response = await call_next(request)
     return response
+
 
 # Connect routers
 app.include_router(pets_router)
