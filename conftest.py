@@ -1,12 +1,14 @@
-import httpx
 import os
-from uvicorn import run
-import threading
-import pytest
 import random
+import threading
 import time
-from util.logging_config import logger
+
+import httpx
+import pytest
+from uvicorn import run
+
 from api.app import app
+from util.logging_config import logger
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -20,7 +22,13 @@ def start_server():
     def run_server():
         logger.info("Starting server", server_port=server_port)
         try:
-            run(app, host="127.0.0.1", port=server_port, log_level="info", loop="asyncio")
+            run(
+                app,
+                host="127.0.0.1",
+                port=server_port,
+                log_level="info",
+                loop="asyncio",
+            )
         except Exception as e:
             logger.error("Failed to start server", error=str(e))
             raise
@@ -63,5 +71,5 @@ def base_url():
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_setup(item):
-    logger.info("\nTEST STARTED", test_name=item.name)
+    logger.info("\n\nTEST STARTED", test_name=item.name)
     yield
