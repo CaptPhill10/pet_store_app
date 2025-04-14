@@ -98,3 +98,16 @@ pytest tests/ -n 4 -vs
 Logging
 -----
 The project includes logging for error handling. Exceptions and other info are logged in the pet_store.log file.
+
+---
+Allure Results
+-----
+To run tests with Allure use this request to collect Allure results
+```
+pytest tests/ -vs --alluredir=allure-results
+```
+
+To see Allure Results use:
+```
+allure serve allure-results
+```
