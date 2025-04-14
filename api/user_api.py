@@ -1,11 +1,12 @@
-from util.logging_config import logger
+from typing import Dict, List
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Dict, List
+
 from data.user_data import users as init_users
+from util.logging_config import logger
 
 router = APIRouter()
-# logger = structlog.get_logger(__name__)
 
 
 # User data model
@@ -92,7 +93,10 @@ class UserStore:
         for user in users:
             new_users.append(self.add_user(user))
         logger.info("Users created successfully", count=len(new_users))
-        return {"message": f"{len(new_users)} users created successfully", "users": new_users}
+        return {
+            "message": f"{len(new_users)} users created successfully",
+            "users": new_users,
+        }
 
 
 user_store = UserStore(init_users)
@@ -127,7 +131,9 @@ def get_user(username: str):
 
 @router.put("/user/{username}", response_model=Dict)
 async def update_user(username: str, user: User):
-    logger.info("Received request to update user", username=username, user=user.model_dump())
+    logger.info(
+        "Received request to update user", username=username, user=user.model_dump()
+    )
     return user_store.update_user(username, user)
 
 
@@ -147,6 +153,7 @@ async def create_users_with_list(users: List[NewUser]):
 async def create_users_with_array(users: List[NewUser]):
     logger.info("Received request to create users with array", count=len(users))
     return user_store.create_users(users)
+
 
 # from fastapi import APIRouter, HTTPException
 # from pydantic import BaseModel

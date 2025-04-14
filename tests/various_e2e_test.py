@@ -1,8 +1,8 @@
-import pytest
+import allure
 import httpx
-import logging
+import pytest
 
-logger = logging.getLogger(__name__)
+from util.logging_config import logger
 
 
 async def add_new_pet(client, base_url):
@@ -43,7 +43,10 @@ async def register_user(client, base_url):
 
 async def login_user(client, base_url, user_data):
     """User login."""
-    login_params = {"username": user_data["username"], "password": user_data["password"]}
+    login_params = {
+        "username": user_data["username"],
+        "password": user_data["password"],
+    }
     logger.debug(f"Logging in user with params: {login_params}")
     response = await client.get(f"{base_url}/user/login", params=login_params)
     logger.debug(f"Response: {response.status_code}, {response.text}")
@@ -80,6 +83,12 @@ async def update_pet_status(client, base_url, pet_data, new_status):
     logger.info(f"Pet status updated to '{new_status}'")
 
 
+@allure.title("E2E: Full workflow for ordering a pet with status updates")
+@allure.description(
+    "This end-to-end test validates the entire user journey: adding a pet, "
+    "registering and logging in a user, placing an order, "
+    "and updating the pet's status through multiple stages."
+)
 @pytest.mark.asyncio
 async def test_pet_order_workflow(base_url):
     """E2E test for full order of the pet with status changes"""
